@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo, Flectra. See LICENSE file for full copyright and licensing details.
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import logging
 try:
@@ -12,9 +12,9 @@ import os
 from os.path import join
 import sys
 
-from flectra.tests.common import TransactionCase
-from flectra import tools
-from flectra.modules import get_modules, get_module_path
+from odoo.tests.common import TransactionCase
+from odoo import tools
+from odoo.modules import get_modules, get_module_path
 
 HERE = os.path.dirname(os.path.realpath(__file__))
 
@@ -134,7 +134,7 @@ class TestPyLint(TransactionCase):
             '--enable=%s' % ','.join(self.ENABLED_CODES),
             '--reports=n',
             "--msg-template='{msg} ({msg_id}) at {path}:{line}'",
-            '--load-plugins=pylint.extensions.bad_builtin,_flectra_checkers',
+            '--load-plugins=pylint.extensions.bad_builtin,_odoo_checkers',
             '--bad-functions=%s' % ','.join(self.BAD_FUNCTIONS),
             '--deprecated-modules=%s' % ','.join(self.BAD_MODULES)
         ]

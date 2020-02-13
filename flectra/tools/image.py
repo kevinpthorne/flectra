@@ -41,7 +41,7 @@ def image_resize_image(base64_source, size=(1024, 1024), encoding='base64', file
         :param base64_source: base64-encoded version of the source
             image; if False, returns False
         :param size: 2-tuple(width, height). A None value for any of width or
-            height mean an automatically computed value based respectively
+            height mean an automatically computed value based respectivelly
             on height or width of the source image.
         :param encoding: the output encoding
         :param filetype: the output filetype, by default the source image's
@@ -103,7 +103,6 @@ def image_resize_and_sharpen(image, size, preserve_aspect_ratio=False, factor=2.
     # create a transparent image for background and paste the image on it
     image = Image.new('RGBA', size, (255, 255, 255, 0))
     image.paste(resized_image, ((size[0] - resized_image.size[0]) // 2, (size[1] - resized_image.size[1]) // 2))
-
     if image.mode != origin_mode:
         image = image.convert(origin_mode)
     return image
@@ -160,7 +159,7 @@ def image_resize_image_small(base64_source, size=(64, 64), encoding='base64', fi
 # ----------------------------------------
 # Crop Image
 # ----------------------------------------
-def crop_image(data, type='top', ratio=False, size=None, image_format="PNG"):
+def crop_image(data, type='top', ratio=False, size=None, image_format=None):
     """ Used for cropping image and create thumbnail
         :param data: base64 data of image.
         :param type: Used for cropping position possible
@@ -189,6 +188,7 @@ def crop_image(data, type='top', ratio=False, size=None, image_format="PNG"):
             new_h = h
             new_w = (h * w_ratio) // h_ratio
 
+    image_format = image_format or image_stream.format or 'JPEG'
     if type == "top":
         cropped_image = image_stream.crop((0, 0, new_w, new_h))
         cropped_image.save(output_stream, format=image_format)
