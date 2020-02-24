@@ -7,8 +7,6 @@ import hashlib
 import pytz
 import threading
 
-from email.utils import formataddr
-
 import requests
 from lxml import etree
 from werkzeug import urls
@@ -373,7 +371,7 @@ class Partner(models.Model):
     @api.depends('name', 'email')
     def _compute_email_formatted(self):
         for partner in self:
-            partner.email_formatted = formataddr((partner.name or u"False", partner.email or u"False"))
+            partner.email_formatted = tools.formataddr((partner.name or u"False", partner.email or u"False"))
 
     @api.depends('is_company')
     def _compute_company_type(self):
@@ -691,12 +689,7 @@ class Partner(models.Model):
             partner_ids = [row[0] for row in self.env.cr.fetchall()]
 
             if partner_ids:
-                result = self.browse(partner_ids).name_get()
-                if self._context.get('show_address_search'):
-                    # Are you a good coder? then you do not need the following comment ;-)))
-                    # Beginner? Okay, read this:
-                    # Replace \n with comma but ignore empty parts
-                    return map(lambda r: (r[0], ', '.join([p.strip() for p in r[1].split("\n") if p.strip()])), result)
+                return self.browse(partner_ids).name_get()
             else:
                 return []
         return super(Partner, self).name_search(name, args, operator=operator, limit=limit)
