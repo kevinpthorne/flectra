@@ -9,7 +9,7 @@ except ImportError:
     from mock import patch
 
 from flectra.tools import html_sanitize, append_content_to_html, config, plaintext2html, email_split, misc
-from Flectra.tests.common import SavepointCase
+from flectra.tests.common import SavepointCase
 from . import test_mail_examples
 
 
