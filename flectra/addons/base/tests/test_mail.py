@@ -337,7 +337,7 @@ class TestEmailTools(unittest.TestCase):
 
 
 class EmailConfigCase(SavepointCase):
-    @patch.dict("odoo.tools.config.options", {"email_from": "settings@example.com"})
+    @patch.dict("flectra.tools.config.options", {"email_from": "settings@example.com"})
     def test_default_email_from(self, *args):
         """Email from setting is respected."""
         # ICP setting is more important
